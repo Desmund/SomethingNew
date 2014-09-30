@@ -31,7 +31,6 @@ public class TableOfRecords extends BaseMenu {
 
     private void writeToFile(){
         //todo заполнить таблицу рекордов
-        //todo создать структуру игрок
         //todo работа с json строкой
         new GameMenu().printMenu();
     }
