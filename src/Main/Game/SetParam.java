@@ -9,13 +9,15 @@ import java.io.IOException;
  * Created by Denis on 30.09.2014.
  */
 public class SetParam extends BaseMenu {
-    private static final int diff_easy = 0;
-    private static final int diff_med = 1;
-    private static final int diff_hard = 2;
+    enum DIFF{
+        diff_easy,
+        diff_med,
+        diff_hard;
+    }
 
     private static  char key = ' ';
 
-    private static int difficulty = diff_med;
+    private static int difficulty = DIFF.diff_med.ordinal();
 
     private static double time = 4;
 
@@ -107,13 +109,13 @@ public class SetParam extends BaseMenu {
     protected boolean select(int i) {
         switch (i) {
             case 1:
-                setDifficulty(diff_easy);
+                setDifficulty(DIFF.diff_easy.ordinal());
                 return true;
             case 2:
-                setDifficulty(diff_med);
+                setDifficulty(DIFF.diff_med.ordinal());
                 return true;
             case 3:
-                setDifficulty(diff_hard);
+                setDifficulty(DIFF.diff_hard.ordinal());
                 return true;
             default:
                 return false;
