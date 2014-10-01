@@ -10,6 +10,10 @@ public class Utils {
         System.out.println(s);
     }
 
+    public static void writeDouble(double d){
+        System.out.format("%.2f%n",d);
+    }
+
     public static void writeEnter(){
         System.out.println();
     }
