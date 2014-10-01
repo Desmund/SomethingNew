@@ -22,7 +22,7 @@ public class BaseGame {
         }
         Utils.writeString("Кол-во раундов: " + new SetParam().getCountOfRound());
         start();
-        new TableOfRecords().printMenu();
+        new TableOfRecords().printMenu(time);
     }
 
     protected void start(){

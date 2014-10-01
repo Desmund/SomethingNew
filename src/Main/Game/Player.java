@@ -7,6 +7,18 @@ import java.util.Date;
  * Created by Denis on 01.10.2014.
  */
 public class Player {
+    public String getName() {
+        return name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
     private String name;
     private String date;
     private double time;
@@ -15,7 +27,7 @@ public class Player {
         this.name = name;
         this.time = time;
         Date d =  new Date();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+        SimpleDateFormat format1 = new SimpleDateFormat("dd:MM:yyyy hh:mm");
         date = format1.format(d);
     }
 }
