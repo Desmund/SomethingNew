@@ -15,8 +15,6 @@ public class SetParam extends BaseMenu {
         diff_hard;
     }
 
-    private static  char key = ' ';
-
     private static int difficulty = DIFF.diff_med.ordinal();
 
     private static double time = 4;
@@ -63,16 +61,6 @@ public class SetParam extends BaseMenu {
         }
     }
 
-    public void setKey(){
-        try{
-            key = Utils.readKey();
-        }catch (Exception e){}
-    }
-
-    public char getKey(){
-        return key;
-    }
-
     public int getDifficulty(){
         return difficulty;
     }
@@ -99,8 +87,6 @@ public class SetParam extends BaseMenu {
         Utils.writeString("2 - Средняя");
         Utils.writeString("3 - Сложная");
         getValue();
-        Utils.writeString("Выберите клавишу:");
-        setKey();
         Utils.writeEnter();
         new GameMenu().printMenu();
     }
