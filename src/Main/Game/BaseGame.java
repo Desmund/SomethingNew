@@ -8,7 +8,10 @@ import java.util.Date;
  * Created by Denis on 30.09.2014.
  */
 public class BaseGame {
+
     private long time=0;
+    private double timeOfAllRounds = 0;
+
     //todo добавить работу с Thread
     public void printMenu(){
         Utils.writeString("Обновление таймера: " + new SetParam().getStep());
@@ -21,8 +24,9 @@ public class BaseGame {
                 Utils.writeString("Время раунда: 1-3");break;
         }
         Utils.writeString("Кол-во раундов: " + new SetParam().getCountOfRound());
+        Utils.writeEnter();
         start();
-        new TableOfRecords().printMenu(time);
+        new TableOfRecords().printMenu(timeOfAllRounds);
     }
 
     protected void start(){
@@ -32,40 +36,40 @@ public class BaseGame {
             try {
                 Utils.readString();
             }catch (Exception e){}
-            Utils.writeString("Вы нажали на " + round());
+            Utils.writeString("Вы нажали на " + round() + " секунд(е)");
+            Utils.writeEnter();
         }
         //задержка
         try {
             Utils.readString();
         }catch (Exception e){}
-        Utils.writeString("Твой результат за "+n+" раундов "+time+" секунды!");
+        Utils.writeStringWithOutEnter("Твой результат за " + n + " раундов " + timeOfAllRounds +" секунд(ы)");
         try {
             Utils.readString();
         }catch (Exception e){}
     }
 
-    protected long round(){
-        //todo обработка нажатия клавиши
-        //todo перевод long->double
-        double step = new SetParam().getStep();
-        long ts = 0,tf = 0;
+    protected double round(){
+        Utils.writeString("Постарайтесь нажать на Enter через "+new SetParam().getTime()+" секунд(ы)");
+        long step =(long) (new SetParam().getStep()*1000);
+        time = (long) (new SetParam().getTime()*1000);
+        long ts = 0,tf = 0, t = 0;
         Date d = new Date();
         ts = d.getTime();
-        char c = new SetParam().getKey();
-        char down = ' ';
-        while(c!=down){
+        char c = ' ';
+        while(c!='\n'){
             d = new Date();
             tf = d.getTime();
-            if((tf-ts)%step==0)
-                counter(tf-ts);
+            t = tf-ts;
             try {
-                down = Utils.readKey();
+                c = Utils.readKey();
             }catch (Exception e){}
         }
         d = new Date();
-        tf = d.getTime();
-        time += Math.abs(tf);
-        return tf;
+        t = d.getTime() - ts;
+        timeOfAllRounds += Math.abs(((time - t)/10)/100.0);
+        new SetParam().setTime(new SetParam().getDifficulty());
+        return (t/10)/100.0;
     }
 
     protected void counter(double num){

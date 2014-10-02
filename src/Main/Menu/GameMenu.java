@@ -25,7 +25,7 @@ public class GameMenu extends BaseMenu{
                 new AlonePlay().printMenu();
                 return true;
             case 2:
-                new MultyPlay();
+                new MultyPlay().printMenu();
                 return true;
             case 3:
                 new SetParam().printMenu();

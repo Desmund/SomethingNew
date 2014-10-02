@@ -10,8 +10,12 @@ public class Utils {
         System.out.println(s);
     }
 
+    public static void writeStringWithOutEnter(String s){
+        System.out.print(s);
+    }
+
     public static void writeDouble(double d){
-        System.out.format("%.2f%n",d);
+        System.out.format("%.1f%n",d);
     }
 
     public static void writeEnter(){
