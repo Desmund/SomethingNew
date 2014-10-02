@@ -11,7 +11,9 @@ import org.json.simple.parser.*;
  * Created by Denis on 30.09.2014.
  */
 public class TableOfRecords extends BaseMenu {
+
     private double time = 0;
+    private String table_path = "e:/js/SomethingNew/Table.txt";
 
     public void printMenu(double t) {
         setTime(t);
@@ -19,6 +21,16 @@ public class TableOfRecords extends BaseMenu {
         Utils.writeString("1 - Да");
         Utils.writeString("2 - Нет");
         getValue();
+    }
+
+    public void printMenu() {
+        Utils.writeString("========Рекорды========");
+        String s = readFromFile();
+        Utils.writeString(s);
+        try {
+            Utils.readString();
+        }catch (Exception e){}
+        new GameMenu().printMenu();
     }
 
     @Override
@@ -44,7 +56,7 @@ public class TableOfRecords extends BaseMenu {
     }
 
     private void writeToFile(){
-        //todo организовать сортировку данных в таблице
+        //todo организовать сортировку данных в таблице и придумать алгоритм создания номера для каждой записи
         String name ="";
         Utils.writeString("Введите свое имя:");
         try {
@@ -53,14 +65,43 @@ public class TableOfRecords extends BaseMenu {
             Utils.writeString("Ошибка ввода!");
         }
         double time = getTime();
-        String table_path = "e:/js/SomethingNew/Table.txt";
         FileUtils file = new FileUtils();
         Player p= new Player(name,time);
         JSONObject obj = new JSONObject();
         JSONArray arr = new JSONArray();
+        arr.add(p.getName());
         arr.add(p.getDate());
         arr.add(p.getTime());
-        obj.put(p.getName(),arr);
-        file.writeFile(table_path,obj.toString());
+        obj.put(0,arr);
+        String s = file.readFile(table_path);
+        if(s!=null){
+            s.replace('}',',');
+            file.writeFile(table_path,s);
+        }
+        s = obj.toString();
+        s.substring(1);
+        file.updateFile(table_path, s);
+    }
+
+    private String readFromFile(){
+        FileUtils file = new FileUtils();
+        StringBuilder s = new StringBuilder();
+        String json = file.readFile(table_path);
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(json);
+            JSONObject jsonObj = (JSONObject) obj;
+            for(int i=0;i<jsonObj.size();i++){
+                JSONArray ja = (JSONArray) jsonObj.get(Integer.toString(i));
+                s.append((i+1)+". ");
+                s.append(ja.get(0).toString()+" ");
+                s.append(ja.get(1).toString()+" ");
+                s.append(ja.get(2).toString()+"\n");
+            }
+        }catch(Exception e){
+            Utils.writeString("Ошибка,при парсинге строки!");
+        }
+        Utils.writeString(" ");
+        return s.toString();
     }
 }

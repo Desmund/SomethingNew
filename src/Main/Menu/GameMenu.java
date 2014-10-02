@@ -31,8 +31,7 @@ public class GameMenu extends BaseMenu{
                 new SetParam().printMenu();
                 return true;
             case 4:
-                //todo создать класс для чтения записей из файла и вывода турнирной таблицы
-                new GameMenu().printMenu();
+                new TableOfRecords().printMenu();
                 return true;
             default:
                 return super.select(i);
