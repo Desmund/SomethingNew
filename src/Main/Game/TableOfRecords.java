@@ -13,8 +13,7 @@ import org.json.simple.parser.*;
 public class TableOfRecords extends BaseMenu {
 
     private double time = 0;
-    //todo исправить путь для общего пользования
-    private String table_path = "e:/js/SomethingNew/Table.txt";
+    private String table_path = "Table.txt";
 
     public void printMenu(double t) {
         setTime(t);
