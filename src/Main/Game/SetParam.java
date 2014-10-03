@@ -26,15 +26,15 @@ public class SetParam extends BaseMenu {
     public void setTime(int diff){
         switch (diff) {
             case 0:
-                time = (int)Math.random()*31 + 30;
+                time = (int)(Math.random()*31) + 30;
                 step = 1;
                 break;
             case 1:
-                time = (int)Math.random()*21 + 20;
+                time = (int)(Math.random()*21) + 20;
                 step = 0.5;
                 break;
             case 2:
-                time = (int)Math.random()*21 + 10;
+                time = (int)(Math.random()*21) + 10;
                 step = 0.2;
                 break;
         }
