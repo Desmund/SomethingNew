@@ -1,6 +1,7 @@
 package Main.Game;
 
 import Main.Menu.GameMenu;
+import Main.ThreadTimer;
 import Main.Utils;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class BaseGame {
     private double timeOfAllRounds = 0;
 
     //todo добавить работу с Thread для таймера
+    //todo возврат из игры
     public void printMenu(){
         Utils.writeString("Обновление таймера: " + new SetParam().getStep());
         switch (new SetParam().getDifficulty()) {
@@ -51,8 +53,10 @@ public class BaseGame {
 
     protected double round(){
         double time_param = new SetParam().getTime();
-        Utils.writeString("Постарайтесь нажать на Enter через "+time_param+" секунд(ы)");
-        long step =(long) (new SetParam().getStep()*1000);
+        double step_param = new SetParam().getStep();
+    //    Utils.writeString("Постарайтесь нажать на Enter через "+time_param+" секунд(ы)");
+        ThreadTimer tt = new ThreadTimer(time_param,step_param);
+        long step =(long) (step_param*1000);
         time = (long) (time_param*1000);
         long ts = 0,tf = 0, t = 0;
         Date d = new Date();
@@ -65,10 +69,13 @@ public class BaseGame {
             try {
                 c = Utils.readKey();
             }catch (Exception e){}
+            if(c=='\n')
+                tt.stop();
         }
         d = new Date();
         t = d.getTime() - ts;
         timeOfAllRounds += Math.abs(((time - t)/10)/100.0);
+
         new SetParam().setTime(new SetParam().getDifficulty());
         return (t/10)/100.0;
     }
