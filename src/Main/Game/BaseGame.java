@@ -13,8 +13,6 @@ public class BaseGame {
     private long time=0;
     private double timeOfAllRounds = 0;
 
-    //todo добавить работу с Thread для таймера
-    //todo возврат из игры
     public void printMenu(){
         Utils.writeString("Обновление таймера: " + new SetParam().getStep());
         switch (new SetParam().getDifficulty()) {
@@ -35,8 +33,11 @@ public class BaseGame {
         int n = new SetParam().getCountOfRound();
         for(int i=0;i<n;i++){
             Utils.writeString("Раунд " + (i+1) + " - Вы готовы?");
+            Utils.writeString("Нажмите любую клавишу для начала");
+            Utils.writeString("0 - Выход в главное меню");
             try {
-                Utils.readString();
+                if(Utils.readKey()=='0')
+                    new GameMenu().printMenu();
             }catch (Exception e){}
             Utils.writeString("Вы нажали на " + round() + " секунд(е)");
             Utils.writeEnter();
@@ -54,7 +55,6 @@ public class BaseGame {
     protected double round(){
         double time_param = new SetParam().getTime();
         double step_param = new SetParam().getStep();
-    //    Utils.writeString("Постарайтесь нажать на Enter через "+time_param+" секунд(ы)");
         ThreadTimer tt = new ThreadTimer(time_param,step_param);
         long step =(long) (step_param*1000);
         time = (long) (time_param*1000);
