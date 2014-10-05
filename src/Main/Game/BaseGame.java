@@ -11,9 +11,15 @@ import java.util.Date;
 public class BaseGame {
 
     private long time=0;
-    private double timeOfAllRounds = 0;
+    protected double timeOfAllRounds = 0;
 
     public void printMenu(){
+        printSets();
+        start();
+        new TableOfRecords().printMenu(timeOfAllRounds);
+    }
+
+    protected void printSets(){
         Utils.writeString("Обновление таймера: " + new SetParam().getStep());
         switch (new SetParam().getDifficulty()) {
             case 0:
@@ -25,8 +31,6 @@ public class BaseGame {
         }
         Utils.writeString("Кол-во раундов: " + new SetParam().getCountOfRound());
         Utils.writeEnter();
-        start();
-        new TableOfRecords().printMenu(timeOfAllRounds);
     }
 
     protected void start(){
@@ -47,6 +51,7 @@ public class BaseGame {
             Utils.readString();
         }catch (Exception e){}
         Utils.writeStringWithOutEnter("Твой результат за " + n + " раундов " + timeOfAllRounds +" секунд(ы)");
+        Utils.writeEnter();
         try {
             Utils.readString();
         }catch (Exception e){}
