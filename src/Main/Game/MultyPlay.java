@@ -30,6 +30,7 @@ public class MultyPlay extends BaseGame {
             }
         }
         Utils.writeString("Победил игрок "+player+" с результатом:"+min);
+        new MultyTableOfRecords().printMenu(min);
     }
 
     public void printMenu() {

@@ -13,7 +13,7 @@ import org.json.simple.parser.*;
 public class TableOfRecords extends BaseMenu {
 
     private double time = 0;
-    private String table_path = "Table.txt";
+    protected String table_path = "Table.txt";
 
     public void printMenu(double t) {
         setTime(t);
@@ -24,6 +24,7 @@ public class TableOfRecords extends BaseMenu {
     }
 
     public void printMenu() {
+        Utils.writeEnter();
         Utils.writeString("========Рекорды========");
         String s = readFromFile();
         Utils.writeString(s);
