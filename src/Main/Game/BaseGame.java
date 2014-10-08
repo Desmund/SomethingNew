@@ -12,10 +12,15 @@ public class BaseGame {
 
     private long time=0;
     protected double timeOfAllRounds = 0;
+    protected int n = new SetParam().getCountOfRound();
 
     public void printMenu(){
+        //todo форматный ввывод.вывод 2 знаков после запятой
         printSets();
-        start();
+        for(int i=0;i<n;i++) {
+            start(i);
+        }
+        waitForClick(timeOfAllRounds);
         new TableOfRecords().printMenu(timeOfAllRounds);
     }
 
@@ -33,28 +38,30 @@ public class BaseGame {
         Utils.writeEnter();
     }
 
-    protected void start(){
-        int n = new SetParam().getCountOfRound();
-        for(int i=0;i<n;i++){
-            Utils.writeString("Раунд " + (i+1) + " - Вы готовы?");
-            Utils.writeString("Нажмите любую клавишу для начала");
-            Utils.writeString("0 - Выход в главное меню");
-            try {
-                if(Utils.readKey()=='0')
-                    new GameMenu().printMenu();
-            }catch (Exception e){}
-            Utils.writeString("Вы нажали на " + round() + " секунд(е)");
-            Utils.writeEnter();
-        }
+    protected void waitForClick(double value){
         //задержка
         try {
             Utils.readString();
         }catch (Exception e){}
-        Utils.writeStringWithOutEnter("Твой результат за " + n + " раундов " + timeOfAllRounds +" секунд(ы)");
+        Utils.writeStringWithOutEnter("Результат за " + n + " раундов " + value +" секунд(ы)");
         Utils.writeEnter();
         try {
             Utils.readString();
         }catch (Exception e){}
+    }
+
+    protected double start(int i){
+        Utils.writeString("Раунд " + (i+1) + " - Вы готовы?");
+        Utils.writeString("Нажмите любую клавишу для начала");
+        Utils.writeString("0 - Выход в главное меню");
+        try {
+            if(Utils.readKey()=='0')
+                new GameMenu().printMenu();
+        }catch (Exception e){}
+        double timeOfRound = round();
+        Utils.writeString("Вы нажали на " + timeOfRound + " секунд(е)");
+        Utils.writeEnter();
+        return timeOfRound;
     }
 
     protected double round(){
@@ -80,12 +87,7 @@ public class BaseGame {
         d = new Date();
         t = d.getTime() - ts;
         timeOfAllRounds += Math.abs(((time - t)/10)/100.0);
-
         new SetParam().setTime(new SetParam().getDifficulty());
-        return (t/10)/100.0;
-    }
-
-    protected void counter(double num){
-        Utils.writeString(Double.toString(num));
+        return ((time - t)/10)/100.0;
     }
 }

@@ -10,6 +10,8 @@ import Main.Utils;
 public class GameMenu extends BaseMenu{
     @Override
     public void printMenu() {
+        //todo сохранение настроек в json и использование их при запуске игры!
+        //todo шифровать данные в файле с рекордами!
         Utils.writeString("1 - Начать одиночную игру");
         Utils.writeString("2 - Начать мультиплеерную игру");
         Utils.writeString("3 - Настройки игры");
@@ -20,6 +22,7 @@ public class GameMenu extends BaseMenu{
 
     @Override
     protected boolean select(int i) {
+        Utils.writeEnter();
         switch (i) {
             case 1:
                 new AlonePlay().printMenu();

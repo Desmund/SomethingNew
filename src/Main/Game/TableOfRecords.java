@@ -58,6 +58,7 @@ public class TableOfRecords extends BaseMenu {
 
     private void writeToFile(){
         //todo организовать сортировку данных в таблице и придумать алгоритм создания номера для каждой записи
+        //todo исправить запись json строки
         String name ="";
         Utils.writeString("Введите свое имя:");
         try {

@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Denis on 04.10.2014.
  */
 public class ThreadTimer implements Runnable {
+    //todo исправить работу с таймером
     private double time;
     private double step;
     private Thread go;

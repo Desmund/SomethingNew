@@ -8,18 +8,22 @@ import java.util.ArrayList;
  * Created by Denis on 30.09.2014.
  */
 public class MultyPlay extends BaseGame {
-    //todo переопределить методы  BaseGame
+    //todo проводить раунд поочередно для каждого игрока
     private int countOfPlayers = 0;
+    private double timeOfOnePlayer = 0;
 
-    @Override
     protected void start() {
         double min;
         int player;
         ArrayList<Double> list = new ArrayList<Double>();
-        for(int i=0;i<countOfPlayers;i++) {
-            Utils.writeString("Ход "+(i+1)+" игрока");
-            super.start();
-            list.add(timeOfAllRounds);
+        for(int i=0;i<countOfPlayers;i++)
+            list.add(0.0);
+        for(int j=0;j<n;j++) {
+            for(int i=0;i<countOfPlayers;i++) {
+                Utils.writeString("Ход "+(i+1)+" игрока");
+                timeOfOnePlayer = super.start(j);
+                list.set(i,list.get(i)+timeOfOnePlayer);
+            }
         }
         min = list.get(0);
         player = 0;
@@ -29,7 +33,8 @@ public class MultyPlay extends BaseGame {
                 player = i+1;
             }
         }
-        Utils.writeString("Победил игрок "+player+" с результатом:"+min);
+        Utils.writeString("Победил игрок "+player);
+        waitForClick(min);
         new MultyTableOfRecords().printMenu(min);
     }
 
