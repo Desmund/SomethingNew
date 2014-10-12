@@ -27,8 +27,12 @@ public class TableOfRecords extends BaseMenu {
         getValue();
     }
 
-    public void printMenu() {
+    public void printMenu(boolean b) {
         Utils.writeEnter();
+        if(b)
+            table_path = "Table.txt";
+        else
+            table_path = "MultyTable.txt";
         Utils.writeString("========Рекорды========");
         String s = readFromFile();
         Utils.writeString(s);

@@ -21,7 +21,7 @@ public class MultyPlay extends BaseGame {
             for(int i=0;i<countOfPlayers;i++) {
                 Utils.writeString("Ход "+(i+1)+" игрока");
                 timeOfOnePlayer = super.start(j);
-                list.set(i,list.get(i)+timeOfOnePlayer);
+                list.set(i,list.get(i)+Math.abs(timeOfOnePlayer));
             }
         }
         min = list.get(0);
@@ -32,7 +32,7 @@ public class MultyPlay extends BaseGame {
                 player = i+1;
             }
         }
-        Utils.writeString("Победил игрок "+player);
+        Utils.writeString("Победил игрок "+player+1);
         waitForClick(min);
         new MultyTableOfRecords().printMenu(min);
     }

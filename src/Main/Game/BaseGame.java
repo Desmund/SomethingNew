@@ -87,7 +87,7 @@ public class BaseGame {
                 tt.stop();
             }
         }
-        timeOfAllRounds += Math.abs(((time - t)/10)/100.0);
+        timeOfAllRounds += ((Math.abs(time - t)/10)/100.0);
         new SetParam().setTime(new SetParam().getDifficulty());
         return ((time - t)/10)/100.0;
     }
