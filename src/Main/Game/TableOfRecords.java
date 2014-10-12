@@ -153,10 +153,6 @@ public class TableOfRecords extends BaseMenu {
             time.add((Double) ja.get(2));
             data.add(ja.toString());
         }
-/*        jo.put(obj.size(), obj.get(obj.size()));
-        JSONArray ja = parsArr(jo,obj.size());
-        time.add((Double) ja.get(2));
-        data.add(ja.toString());   */
         JSONObject o = new JSONObject();
         String dop_string = "";
         double dop_double = 0;

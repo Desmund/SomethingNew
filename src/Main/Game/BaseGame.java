@@ -82,11 +82,11 @@ public class BaseGame {
             try {
                 c = Utils.readKey();
             }catch (Exception e){}
-            if(c=='\n')
+            if(c=='\n') {
+                t = tt.getTime();
                 tt.stop();
+            }
         }
-        d = new Date();
-        t = d.getTime() - ts;
         timeOfAllRounds += Math.abs(((time - t)/10)/100.0);
         new SetParam().setTime(new SetParam().getDifficulty());
         return ((time - t)/10)/100.0;
