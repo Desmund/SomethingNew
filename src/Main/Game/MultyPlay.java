@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * Created by Denis on 30.09.2014.
  */
 public class MultyPlay extends BaseGame {
-    //todo проводить раунд поочередно для каждого игрока
     private int countOfPlayers = 0;
     private double timeOfOnePlayer = 0;
 

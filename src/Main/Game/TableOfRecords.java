@@ -57,8 +57,7 @@ public class TableOfRecords extends BaseMenu {
     }
 
     private void writeToFile(){
-        //todo организовать сортировку данных в таблице и придумать алгоритм создания номера для каждой записи
-        //todo исправить запись json строки
+        //todo организовать сортировку данных в таблице
         String name ="";
         Utils.writeString("Введите свое имя:");
         try {
@@ -68,21 +67,26 @@ public class TableOfRecords extends BaseMenu {
         }
         double time = getTime();
         FileUtils file = new FileUtils();
+        String s = file.readFile(table_path);
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObj = new JSONObject();
+        try {
+            Object o = parser.parse(s);
+            jsonObj = (JSONObject) o;
+        }catch(Exception e){
+            Utils.writeString("Ошибка,при парсинге строки!");
+        }
         Player p= new Player(name,time);
         JSONObject obj = new JSONObject();
         JSONArray arr = new JSONArray();
         arr.add(p.getName());
         arr.add(p.getDate());
         arr.add(p.getTime());
-        obj.put(0,arr);
-        String s = file.readFile(table_path);
-        if(s!=null){
-            s.replace('}',',');
-            file.writeFile(table_path,s);
-        }
+        obj.put(jsonObj.size(),arr);
+        if(!jsonObj.isEmpty())
+            obj.putAll(jsonObj);
         s = obj.toString();
-        s.substring(1);
-        file.updateFile(table_path, s);
+        file.writeFile(table_path,s);
     }
 
     private String readFromFile(){
