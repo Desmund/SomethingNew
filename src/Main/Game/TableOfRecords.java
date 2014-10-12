@@ -8,6 +8,7 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -85,12 +86,19 @@ public class TableOfRecords extends BaseMenu {
         JSONArray arr = new JSONArray();
         arr.add(p.getName());
         arr.add(p.getDate());
-        arr.add(p.getTime());
+        arr.add(convertTime(p.getTime()));
         obj.put(jsonObj.size()+1,arr);
         if(!jsonObj.isEmpty())
             obj.putAll(jsonObj);
         s = obj.toString();
         file.writeFile(table_path,s);
+    }
+
+    private double convertTime(double b){
+        int i = (int)b;
+        int a = (int)((b - i)*100);
+        b = i + a/100.0;
+        return b;
     }
 
     private JSONObject parsObj(String json){

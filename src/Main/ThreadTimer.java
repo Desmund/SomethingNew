@@ -26,7 +26,9 @@ public class ThreadTimer implements Runnable {
             while((last - first)<(step*1000)){
                 last = new Date().getTime();
             }
-            Utils.writeString("Игрок - "+time);
+            Utils.writeStringWithOutEnter("Игрок - ");
+            System.out.format("%.2f", time);
+            Utils.writeEnter();
             time -= step;
         }
     }

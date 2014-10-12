@@ -15,7 +15,6 @@ public class BaseGame {
     protected int n = new SetParam().getCountOfRound();
 
     public void printMenu(){
-        //todo форматный ввывод.вывод 2 знаков после запятой
         printSets();
         for(int i=0;i<n;i++) {
             start(i);
@@ -43,7 +42,9 @@ public class BaseGame {
         try {
             Utils.readString();
         }catch (Exception e){}
-        Utils.writeStringWithOutEnter("Результат за " + n + " раундов " + value +" секунд(ы)");
+        Utils.writeStringWithOutEnter("Результат за " + n + " раундов ");
+        System.out.format("%.2f", value);
+        Utils.writeString(" секунд(ы)");
         Utils.writeEnter();
         try {
             Utils.readString();
