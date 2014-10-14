@@ -6,10 +6,7 @@ import Main.Menu.GameMenu;
 import Main.Utils;
 import org.json.simple.*;
 import org.json.simple.parser.*;
-
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Created by Denis on 30.09.2014.

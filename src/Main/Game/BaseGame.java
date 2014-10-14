@@ -12,7 +12,7 @@ public class BaseGame {
 
     private long time=0;
     protected double timeOfAllRounds = 0;
-    protected int n = new SetParam().getCountOfRound();
+    protected long n = new SetParam().getCountOfRound();
 
     public void printMenu(){
         printSets();

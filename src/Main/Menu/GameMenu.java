@@ -12,6 +12,8 @@ public class GameMenu extends BaseMenu{
     public void printMenu() {
         //todo сохранение настроек в json и использование их при запуске игры!
         //todo шифровать данные в файле с рекордами!
+        //todo рефакторинг!
+        new SetParam().getParam();
         Utils.writeString("1 - Начать одиночную игру");
         Utils.writeString("2 - Начать мультиплеерную игру");
         Utils.writeString("3 - Настройки игры");

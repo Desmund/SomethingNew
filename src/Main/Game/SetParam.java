@@ -2,8 +2,9 @@ package Main.Game;
 
 import Main.Menu.*;
 import Main.*;
-
-import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * Created by Denis on 30.09.2014.
@@ -17,11 +18,11 @@ public class SetParam extends BaseMenu {
 
     private static int difficulty = DIFF.diff_med.ordinal();
 
-    private static double time = 4;
+    private static double time = 0;
 
-    private static double step = 0.5;
+    private static double step = 0;
 
-    private static int counOfRound = 20;
+    private static long counOfRound = 0;
 
     public void setTime(int diff){
         switch (diff) {
@@ -69,7 +70,7 @@ public class SetParam extends BaseMenu {
         return time;
     }
 
-    public int getCountOfRound(){
+    public long getCountOfRound(){
         return counOfRound;
     }
 
@@ -88,6 +89,7 @@ public class SetParam extends BaseMenu {
         Utils.writeString("3 - Сложная");
         getValue();
         Utils.writeEnter();
+        setParam();
         new GameMenu().printMenu();
     }
 
@@ -106,5 +108,33 @@ public class SetParam extends BaseMenu {
             default:
                 return false;
         }
+    }
+
+    public boolean getParam(){
+        FileUtils file = new FileUtils();
+        String json_str = file.readFile("Sets.txt");
+        JSONObject obj = new JSONObject();
+        JSONParser parser = new JSONParser();
+        try{
+            obj = (JSONObject) parser.parse(json_str);
+        }catch(Exception e){}
+        JSONArray ja = (JSONArray) obj.get("sets");
+        time = (Double) ja.get(0);
+        step = (Double) ja.get(1);
+        counOfRound = (Long)ja.get(2);
+        return true;
+    }
+
+    public void setParam(){
+        FileUtils file = new FileUtils();
+        String json_str;
+        JSONArray ja = new JSONArray();
+        JSONObject obj = new JSONObject();
+        ja.add(time);
+        ja.add(step);
+        ja.add(counOfRound);
+        obj.put("sets",ja);
+        json_str = obj.toString();
+        file.writeFile("Sets.txt",json_str);
     }
 }
