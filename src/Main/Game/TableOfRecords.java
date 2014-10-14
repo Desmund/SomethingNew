@@ -71,7 +71,7 @@ public class TableOfRecords extends BaseMenu {
         }
         double time = getTime();
         FileUtils file = new FileUtils();
-        String s = file.readFile(table_path);
+        String s = decode(file.readFile(table_path));
         JSONParser parser = new JSONParser();
         JSONObject jsonObj = new JSONObject();
         if(!s.isEmpty()){
@@ -92,7 +92,7 @@ public class TableOfRecords extends BaseMenu {
         if(!jsonObj.isEmpty())
             obj.putAll(jsonObj);
         s = obj.toString();
-        file.writeFile(table_path,s);
+        file.writeFile(table_path,code(s));
     }
 
     private double convertTime(double b){
@@ -126,7 +126,7 @@ public class TableOfRecords extends BaseMenu {
     private String readFromFile(){
         FileUtils file = new FileUtils();
         StringBuilder s = new StringBuilder();
-        String json = file.readFile(table_path);
+        String json = decode(file.readFile(table_path));
         if(json.isEmpty()) {
             Utils.writeString("Таблица рекордов пустая!");
             return "";
@@ -179,5 +179,38 @@ public class TableOfRecords extends BaseMenu {
             o.put(Integer.toString(i+1),ar);
         }
         return o;
+    }
+
+    private String code(String s){
+        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(i%2==1)
+                setOfChar.add((int)c-(i%9));
+            else
+                setOfChar.add((int)c+(i%9));
+        }
+        JSONArray arr = new JSONArray();
+        arr.addAll(setOfChar);
+        s = arr.toString();
+        return s;
+    }
+
+    private String decode(String s){
+        StringBuilder cs = new StringBuilder();
+        JSONParser parse = new JSONParser();
+        JSONArray arr = new JSONArray();
+        try{
+            arr = (JSONArray) parse.parse(s);
+        }catch(Exception e){}
+        for(int i = 0; i < arr.size(); i++){
+            long c = (Long) arr.get(i);
+            if(i%2==1)
+                cs.append((char)(c+(i%9)));
+            else
+                cs.append((char)(c-(i%9)));
+        }
+        s = cs.toString();
+        return s;
     }
 }
