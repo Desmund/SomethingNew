@@ -61,9 +61,9 @@ public class GameMenu extends BaseMenu{
             }
         switch (val){
             case 1:
-                new TableOfRecords().printMenu(true);
+                new RecordMenu().printMenu(true);
             case 2:
-                new TableOfRecords().printMenu(false);
+                new RecordMenu().printMenu(false);
         }
     }
 }

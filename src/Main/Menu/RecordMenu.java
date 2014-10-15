@@ -2,17 +2,21 @@ package Main.Menu;
 
 import Main.FileUtils;
 import Main.Game.Player;
+import Main.Game.Record;
+import Main.Game.TableOfRecords;
 import Main.Utils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
+import java.util.ArrayList;
 
 /**
  * Created by Denis on 15.10.2014.
  */
 public class RecordMenu extends BaseMenu {
+    private TableOfRecords tb = new TableOfRecords();
+    private double time;
+
     public void printMenu(double t) {
-        setTime(t);
+        time = t;
         Utils.writeString("Записать ваш результат в таблицу рекордов?");
         Utils.writeString("1 - Да");
         Utils.writeString("2 - Нет");
@@ -21,13 +25,14 @@ public class RecordMenu extends BaseMenu {
 
     public void printMenu(boolean b) {
         Utils.writeEnter();
-        if(b)
-            table_path = "Table.txt";
-        else
-            table_path = "MultyTable.txt";
+//        if(b)
+//            table_path = "Table.txt";
+//        else
+//            table_path = "MultyTable.txt";
         Utils.writeString("========Рекорды========");
-        String s = readFromFile();
-        Utils.writeString(s);
+        ArrayList<Record> rec = tb.readFromFile();
+        //todo перевести лист->строка
+        Utils.writeString(rec.toString());
         try {
             Utils.readString();
         }catch (Exception e){}
@@ -56,18 +61,7 @@ public class RecordMenu extends BaseMenu {
         }catch (Exception e){
             Utils.writeString("Ошибка ввода!");
         }
-        double time = getTime();
-
-        Player p= new Player(name,time);
-        JSONObject obj = new JSONObject();
-        JSONArray arr = new JSONArray();
-        arr.add(p.getName());
-        arr.add(p.getDate());
-        arr.add(convertTime(p.getTime()));
-        obj.put(jsonObj.size()+1,arr);
-        if(!jsonObj.isEmpty())
-            obj.putAll(jsonObj);
-        s = obj.toString();
-        file.writeFile(table_path,code(s));
+        Player p = new Player(name,time);
+        tb.writeToFile(p);
     }
 }

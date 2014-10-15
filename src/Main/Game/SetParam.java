@@ -2,9 +2,6 @@ package Main.Game;
 
 import Main.Menu.*;
 import Main.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  * Created by Denis on 30.09.2014.
@@ -85,30 +82,30 @@ public class SetParam {
 
 
     public static boolean getParam(){
-        FileUtils file = new FileUtils();
-        String json_str = file.readFile("Sets.txt");
-        JSONObject obj = new JSONObject();
-        JSONParser parser = new JSONParser();
-        try{
-            obj = (JSONObject) parser.parse(json_str);
-        }catch(Exception e){}
-        JSONArray ja = (JSONArray) obj.get("sets");
-        time = (Double) ja.get(0);
-        step = (Double) ja.get(1);
-        counOfRound = (Long)ja.get(2);
-        return true;
+//        FileUtils file = new FileUtils();
+//        String json_str = file.readFile("Sets.txt");
+//        JSONObject obj = new JSONObject();
+//        JSONParser parser = new JSONParser();
+//        try{
+//            obj = (JSONObject) parser.parse(json_str);
+//        }catch(Exception e){}
+//        JSONArray ja = (JSONArray) obj.get("sets");
+//        time = (Double) ja.get(0);
+//        step = (Double) ja.get(1);
+//        counOfRound = (Long)ja.get(2);
+        return false;
     }
 
     public static void setParam(){
-        FileUtils file = new FileUtils();
-        String json_str;
-        JSONArray ja = new JSONArray();
-        JSONObject obj = new JSONObject();
-        ja.add(time);
-        ja.add(step);
-        ja.add(counOfRound);
-        obj.put("sets",ja);
-        json_str = obj.toString();
-        file.writeFile("Sets.txt",json_str);
+//        FileUtils file = new FileUtils();
+//        String json_str;
+//        JSONArray ja = new JSONArray();
+//        JSONObject obj = new JSONObject();
+//        ja.add(time);
+//        ja.add(step);
+//        ja.add(counOfRound);
+//        obj.put("sets",ja);
+//        json_str = obj.toString();
+//        file.writeFile("Sets.txt",json_str);
     }
 }

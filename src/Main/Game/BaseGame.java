@@ -1,6 +1,7 @@
 package Main.Game;
 
 import Main.Menu.GameMenu;
+import Main.Menu.RecordMenu;
 import Main.ThreadTimer;
 import Main.Utils;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class BaseGame {
             start(i);
         }
         waitForClick(timeOfAllRounds);
-        new TableOfRecords().printMenu(timeOfAllRounds);
+        new RecordMenu().printMenu(timeOfAllRounds);
     }
 
     protected void printSets(){

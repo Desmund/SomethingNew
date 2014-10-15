@@ -26,10 +26,10 @@ public class TableOfRecords{
         file.writeFile(table_path,gson.toJson(rec));
     }
 
-    private ArrayList<Record> readFromFile(){
+    public ArrayList<Record> readFromFile(){
         FileUtils file = new FileUtils();
         //StringBuilder s = new StringBuilder();
-        String json = decode(file.readFile(table_path));
+        String json =file.readFile(table_path);
         if(json.isEmpty()) {
             //Utils.writeString("Таблица рекордов пустая!");
             return new ArrayList<Record>();
@@ -55,96 +55,73 @@ public class TableOfRecords{
         return b;
     }
 
-    private JSONObject parsObj(String json){
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObj = new JSONObject();
-        try {
-            Object obj = parser.parse(json);
-            jsonObj = (JSONObject) obj;
-        }catch(Exception e){
-            Utils.writeString("Ошибка,при парсинге строки!");
-        }
-        return jsonObj;
-    }
+//    private JSONObject sortTableValues(JSONObject obj){
+//        ArrayList<Double> time = new ArrayList<Double>();
+//        ArrayList<String> data = new ArrayList<String>();
+//        JSONObject jo = new JSONObject();
+//        for(int i=1;i<=obj.size();i++) {
+//            jo.put(i, obj.get(Integer.toString(i)));
+//            JSONArray ja = parsArr(jo,i);
+//            time.add((Double) ja.get(2));
+//            data.add(ja.toString());
+//        }
+//        JSONObject o = new JSONObject();
+//        String dop_string = "";
+//        double dop_double = 0;
+//        for(int i = 0;i<time.size();i++) {
+//            for (int j = i+1; j < time.size(); j++) {
+//                if (time.get(i) > time.get(j)) {
+//                    dop_double = time.get(j);
+//                    time.set(j,time.get(i));
+//                    time.set(i,dop_double);
+//                    dop_string = data.get(j);
+//                    data.set(j,data.get(i));
+//                    data.set(i,dop_string);
+//                }
+//            }
+//            JSONArray ar = new JSONArray();
+//            Object or = new Object();
+//            JSONParser parser = new JSONParser();
+//            try {
+//                 or = parser.parse(data.get(i));
+//            }catch (Exception e){}
+//            for(int k=0;k<3;k++)
+//                ar.add(((JSONArray) or).get(k));
+//            o.put(Integer.toString(i+1),ar);
+//        }
+//        return o;
+//    }
 
-    private JSONArray parsArr(JSONObject jo,int i){
-        JSONArray j = new JSONArray();
-        JSONParser parser = new JSONParser();
-        try {
-            j =(JSONArray) parser.parse(jo.get(i).toString());
-        }catch (Exception e) {}
-        return j;
-    }
-
-
-
-    private JSONObject sortTableValues(JSONObject obj){
-        ArrayList<Double> time = new ArrayList<Double>();
-        ArrayList<String> data = new ArrayList<String>();
-        JSONObject jo = new JSONObject();
-        for(int i=1;i<=obj.size();i++) {
-            jo.put(i, obj.get(Integer.toString(i)));
-            JSONArray ja = parsArr(jo,i);
-            time.add((Double) ja.get(2));
-            data.add(ja.toString());
-        }
-        JSONObject o = new JSONObject();
-        String dop_string = "";
-        double dop_double = 0;
-        for(int i = 0;i<time.size();i++) {
-            for (int j = i+1; j < time.size(); j++) {
-                if (time.get(i) > time.get(j)) {
-                    dop_double = time.get(j);
-                    time.set(j,time.get(i));
-                    time.set(i,dop_double);
-                    dop_string = data.get(j);
-                    data.set(j,data.get(i));
-                    data.set(i,dop_string);
-                }
-            }
-            JSONArray ar = new JSONArray();
-            Object or = new Object();
-            JSONParser parser = new JSONParser();
-            try {
-                 or = parser.parse(data.get(i));
-            }catch (Exception e){}
-            for(int k=0;k<3;k++)
-                ar.add(((JSONArray) or).get(k));
-            o.put(Integer.toString(i+1),ar);
-        }
-        return o;
-    }
-
-    private String code(String s){
-        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
-        for(int i = 0; i < s.length(); i++){
-            char c = s.charAt(i);
-            if(i%2==1)
-                setOfChar.add((int)c-(i%9));
-            else
-                setOfChar.add((int)c+(i%9));
-        }
-        JSONArray arr = new JSONArray();
-        arr.addAll(setOfChar);
-        s = arr.toString();
-        return s;
-    }
-
-    private String decode(String s){
-        StringBuilder cs = new StringBuilder();
-        JSONParser parse = new JSONParser();
-        JSONArray arr = new JSONArray();
-        try{
-            arr = (JSONArray) parse.parse(s);
-        }catch(Exception e){}
-        for(int i = 0; i < arr.size(); i++){
-            long c = (Long) arr.get(i);
-            if(i%2==1)
-                cs.append((char)(c+(i%9)));
-            else
-                cs.append((char)(c-(i%9)));
-        }
-        s = cs.toString();
-        return s;
-    }
+//    private String code(String s){
+//        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
+//        for(int i = 0; i < s.length(); i++){
+//            char c = s.charAt(i);
+//            if(i%2==1)
+//                setOfChar.add((int)c-(i%9));
+//            else
+//                setOfChar.add((int)c+(i%9));
+//        }
+//        JSONArray arr = new JSONArray();
+//        arr.addAll(setOfChar);
+//        s = arr.toString();
+//        return s;
+//    }
+//
+//    private String decode(String s){
+//        StringBuilder cs = new StringBuilder();
+//        JSONParser parse = new JSONParser();
+//        JSONArray arr = new JSONArray();
+//        try{
+//            arr = (JSONArray) parse.parse(s);
+//        }catch(Exception e){}
+//        for(int i = 0; i < arr.size(); i++){
+//            long c = (Long) arr.get(i);
+//            if(i%2==1)
+//                cs.append((char)(c+(i%9)));
+//            else
+//                cs.append((char)(c-(i%9)));
+//        }
+//        s = cs.toString();
+//        return s;
+//    }
 }
