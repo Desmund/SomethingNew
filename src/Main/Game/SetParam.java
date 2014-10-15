@@ -78,9 +78,7 @@ public class SetParam {
     public static double getStep(){
         return step;
     }
-
-
-
+    //todo переделать методы
     public static boolean getParam(){
 //        FileUtils file = new FileUtils();
 //        String json_str = file.readFile("Sets.txt");

@@ -6,7 +6,7 @@ import java.io.*;
  * Created by Denis on 01.10.2014.
  */
 public class FileUtils {
-    public void writeFile(String fileName,String text){
+    public static void writeFile(String fileName,String text){
         try{
             File file = new File(fileName);
             if(!file.exists())
@@ -22,7 +22,7 @@ public class FileUtils {
         }
     }
 
-    public String readFile(String fileName){
+    public static String readFile(String fileName){
         StringBuilder sb = new StringBuilder();
         if(exists(fileName)){
             File file = new File(fileName);
@@ -44,7 +44,7 @@ public class FileUtils {
         return sb.toString();
     }
 
-    public boolean exists(String fileName){
+    public static boolean exists(String fileName){
         File file = new File(fileName);
         if(!file.exists())
             return false;
@@ -52,7 +52,7 @@ public class FileUtils {
             return true;
     }
 
-    public void updateFile(String fileName, String newText){
+    public static void updateFile(String fileName, String newText){
         if(exists(fileName)){
             StringBuilder sb = new StringBuilder();
             String oldFile = readFile(fileName);
@@ -62,7 +62,7 @@ public class FileUtils {
         }
     }
 
-    public void delete(String fileName){
+    public static void delete(String fileName){
         if(exists(fileName))
             new File(fileName).delete();
     }

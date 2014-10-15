@@ -19,15 +19,13 @@ public class TableOfRecords{
         ArrayList<Record> rec = readFromFile();
         rec.add(new Record(p.getName(),p.getDate(),p.getTime()));
         Gson gson = new Gson();
-        FileUtils file = new FileUtils();
         table_path = RecordMenu.getTable_path();
-        file.writeFile(table_path,gson.toJson(rec));
+        FileUtils.writeFile(table_path,gson.toJson(rec));
     }
 
     public ArrayList<Record> readFromFile(){
-        FileUtils file = new FileUtils();
         table_path = RecordMenu.getTable_path();
-        String json =file.readFile(table_path);
+        String json =FileUtils.readFile(table_path);
         if(json.isEmpty()) {
             Utils.writeString("Таблица рекордов пустая!");
             return new ArrayList<Record>();
