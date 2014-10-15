@@ -1,13 +1,10 @@
 package Main.Game;
 
 import Main.FileUtils;
-import Main.Menu.BaseMenu;
-import Main.Menu.GameMenu;
+import Main.Menu.RecordMenu;
 import Main.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.javafx.collections.transformation.FilterableList;
-
 import java.util.ArrayList;
 
 /**
@@ -16,22 +13,23 @@ import java.util.ArrayList;
 public class TableOfRecords{
 
     private double time = 0;
-    protected String table_path = "Table.txt";
+    protected String table_path;
 
     public void writeToFile(Player p){
         ArrayList<Record> rec = readFromFile();
         rec.add(new Record(p.getName(),p.getDate(),p.getTime()));
         Gson gson = new Gson();
         FileUtils file = new FileUtils();
+        table_path = RecordMenu.getTable_path();
         file.writeFile(table_path,gson.toJson(rec));
     }
 
     public ArrayList<Record> readFromFile(){
         FileUtils file = new FileUtils();
-        //StringBuilder s = new StringBuilder();
+        table_path = RecordMenu.getTable_path();
         String json =file.readFile(table_path);
         if(json.isEmpty()) {
-            //Utils.writeString("Таблица рекордов пустая!");
+            Utils.writeString("Таблица рекордов пустая!");
             return new ArrayList<Record>();
         }
         Gson gson = new Gson();
@@ -39,21 +37,21 @@ public class TableOfRecords{
         return l;
     }
     //************************************
-
-    private void setTime(double time){
-        this.time = time;
-    }
-
-    private double getTime(){
-        return time;
-    }
-
-    private double convertTime(double b){
-        int i = (int)b;
-        int a = (int)((b - i)*100);
-        b = i + a/100.0;
-        return b;
-    }
+    //todo переделать методы
+//    private void setTime(double time){
+//        this.time = time;
+//    }
+//
+//    private double getTime(){
+//        return time;
+//    }
+//
+//    private double convertTime(double b){
+//        int i = (int)b;
+//        int a = (int)((b - i)*100);
+//        b = i + a/100.0;
+//        return b;
+//    }
 
 //    private JSONObject sortTableValues(JSONObject obj){
 //        ArrayList<Double> time = new ArrayList<Double>();

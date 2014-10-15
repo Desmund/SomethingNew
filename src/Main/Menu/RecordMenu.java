@@ -1,6 +1,5 @@
 package Main.Menu;
 
-import Main.FileUtils;
 import Main.Game.Player;
 import Main.Game.Record;
 import Main.Game.TableOfRecords;
@@ -14,8 +13,13 @@ import java.util.ArrayList;
 public class RecordMenu extends BaseMenu {
     private TableOfRecords tb = new TableOfRecords();
     private double time;
+    private static String table_path;
 
-    public void printMenu(double t) {
+    public void printMenu(double t,boolean b) {
+        if(b)
+            setTable_path("Table.txt");
+        else
+            setTable_path("MultyTable.txt");
         time = t;
         Utils.writeString("Записать ваш результат в таблицу рекордов?");
         Utils.writeString("1 - Да");
@@ -25,10 +29,10 @@ public class RecordMenu extends BaseMenu {
 
     public void printMenu(boolean b) {
         Utils.writeEnter();
-//        if(b)
-//            table_path = "Table.txt";
-//        else
-//            table_path = "MultyTable.txt";
+        if(b)
+            table_path = "Table.txt";
+        else
+            table_path = "MultyTable.txt";
         Utils.writeString("========Рекорды========");
         ArrayList<Record> rec = tb.readFromFile();
         StringBuilder sb = new StringBuilder();
@@ -66,5 +70,13 @@ public class RecordMenu extends BaseMenu {
         }
         Player p = new Player(name,time);
         tb.writeToFile(p);
+    }
+
+    public static void setTable_path(String s){
+        table_path = s;
+    }
+
+    public static String getTable_path() {
+        return table_path;
     }
 }

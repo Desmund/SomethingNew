@@ -1,6 +1,7 @@
 package Main.Game;
 
 import Main.Menu.GameMenu;
+import Main.Menu.RecordMenu;
 import Main.Utils;
 import java.util.ArrayList;
 
@@ -34,8 +35,7 @@ public class MultyPlay extends BaseGame {
         }
         Utils.writeString("Победил игрок "+player+1);
         waitForClick(min);
-        //todo разобраться
-      //  new MultyTableOfRecords().printMenu(min);
+        new RecordMenu().printMenu(min,false);
     }
 
     public void printMenu() {

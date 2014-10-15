@@ -21,7 +21,7 @@ public class BaseGame {
             start(i);
         }
         waitForClick(timeOfAllRounds);
-        new RecordMenu().printMenu(timeOfAllRounds);
+        new RecordMenu().printMenu(timeOfAllRounds,true);
     }
 
     protected void printSets(){
