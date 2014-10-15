@@ -1,1 +1,1 @@
-{"time":1.2,"step":0.2,"counOfRound":3,"difficulty":2}
+{"time":3.7,"step":0.5,"counOfRound":2,"difficulty":1}

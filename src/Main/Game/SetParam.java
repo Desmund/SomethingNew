@@ -50,15 +50,11 @@ public class SetParam {
     public static void setCountOfRounds(){
         boolean enter = false;
         while(!enter) {
-            try {
-                counOfRound = Utils.readInteger();
-                if(counOfRound>0&&counOfRound<=20)
-                    enter = true;
-                else
-                    Utils.writeString("Количество раундов должнл быть больше 0 и меньше или равно 20!");
-            } catch (Exception e) {
-                Utils.writeString("Введите целое число!");
-            }
+            counOfRound = Utils.readInteger();
+            if(counOfRound>0&&counOfRound<=20)
+                enter = true;
+            else
+                Utils.writeString("Количество раундов должнл быть больше 0 и меньше или равно 20!");
         }
     }
 
@@ -77,7 +73,6 @@ public class SetParam {
     public static double getStep(){
         return step;
     }
-    //todo переделать методы
     public static void getParam(){
         String json_str = FileUtils.readFile("Sets.txt");
         JsonObject obj = new JsonObject();

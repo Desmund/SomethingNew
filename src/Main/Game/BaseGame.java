@@ -40,26 +40,20 @@ public class BaseGame {
 
     protected void waitForClick(double value){
         //задержка
-        try {
-            Utils.readString();
-        }catch (Exception e){}
+        Utils.readString();
         Utils.writeStringWithOutEnter("Результат за " + n + " раундов ");
         System.out.format("%.2f", value);
         Utils.writeString(" секунд(ы)");
         Utils.writeEnter();
-        try {
-            Utils.readString();
-        }catch (Exception e){}
+        Utils.readString();
     }
 
     protected double start(int i){
         Utils.writeString("Раунд " + (i+1) + " - Вы готовы?");
         Utils.writeString("Нажмите любую клавишу для начала");
         Utils.writeString("0 - Выход в главное меню");
-        try {
-            if(Utils.readKey()=='0')
-                new GameMenu().printMenu();
-        }catch (Exception e){}
+        if(Utils.readKey()=='0')
+            new GameMenu().printMenu();
         double timeOfRound = round();
         Utils.writeString("Вы нажали на " + timeOfRound + " секунд(е)");
         Utils.writeEnter();
@@ -80,9 +74,7 @@ public class BaseGame {
             d = new Date();
             tf = d.getTime();
             t = tf-ts;
-            try {
-                c = Utils.readKey();
-            }catch (Exception e){}
+            c = Utils.readKey();
             if(c=='\n') {
                 t = tt.getTime();
                 tt.stop();

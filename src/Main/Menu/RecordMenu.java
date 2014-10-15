@@ -39,9 +39,7 @@ public class RecordMenu extends BaseMenu {
             sb.append((i+1)+". "+rec.get(i)+"\n");
         }
         Utils.writeString(sb.toString());
-        try {
-            Utils.readString();
-        }catch (Exception e){}
+        Utils.readString();
         new GameMenu().printMenu();
     }
 
@@ -62,11 +60,7 @@ public class RecordMenu extends BaseMenu {
     private void writeToFile(){
         String name ="";
         Utils.writeString("Введите свое имя:");
-        try {
-            name = Utils.readString();
-        }catch (Exception e){
-            Utils.writeString("Ошибка ввода!");
-        }
+        name = Utils.readString();
         Player p = new Player(name,time);
         tb.writeToFile(p);
     }

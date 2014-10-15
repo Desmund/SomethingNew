@@ -22,20 +22,33 @@ public class Utils {
         System.out.println();
     }
 
-    public static int readInteger()throws Exception{
-        int num = Integer.parseInt(readString());
-        return num;
+    public static int readInteger(){
+        try {
+            int num = Integer.parseInt(readString());
+            return num;
+        }catch(Exception e){
+            Utils.writeString("Ошибка ввода числа!");
+        }
+        return -1;
     }
 
-    public static char readKey()throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in,"Cp866"));
-        int key = br.read();
-        return (char)key;
+    public static char readKey(){
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "Cp866"));
+            int key = br.read();
+            return (char) key;
+        }catch(Exception e){}
+        return ' ';
     }
 
-    public static String readString()throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String s=br.readLine();
-        return s;
+    public static String readString(){
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String s = br.readLine();
+            return s;
+        } catch (Exception e) {
+        Utils.writeString("Ошибка ввода строки!");
+        }
+        return null;
     }
 }

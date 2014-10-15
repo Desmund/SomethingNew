@@ -34,22 +34,6 @@ public class TableOfRecords{
         ArrayList<Record> l = gson.fromJson(json,new TypeToken<ArrayList<Record>>(){}.getType());
         return l;
     }
-    //************************************
-    //todo переделать методы
-//    private void setTime(double time){
-//        this.time = time;
-//    }
-//
-//    private double getTime(){
-//        return time;
-//    }
-//
-//    private double convertTime(double b){
-//        int i = (int)b;
-//        int a = (int)((b - i)*100);
-//        b = i + a/100.0;
-//        return b;
-//    }
 
 //    private JSONObject sortTableValues(JSONObject obj){
 //        ArrayList<Double> time = new ArrayList<Double>();

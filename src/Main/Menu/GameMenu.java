@@ -46,17 +46,12 @@ public class GameMenu extends BaseMenu{
         Utils.writeString("2 - мультиплеерная");
         int val = 0;
             while(val == 0) {
-                try {
-                    val = Utils.readInteger();
-                    if((val<1)||(val>2)){
-                        val = 0;
-                        Utils.writeString("Введите 1 или 2!");
-                    }
-                    else break;
-                }catch (Exception e){
+                val = Utils.readInteger();
+                if((val<1)||(val>2)){
                     val = 0;
-                    Utils.writeString("Ошибка ввода числа!");
+                    Utils.writeString("Введите 1 или 2!");
                 }
+                else break;
             }
         switch (val){
             case 1:

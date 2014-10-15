@@ -26,14 +26,14 @@ public class MultyPlay extends BaseGame {
             }
         }
         min = list.get(0);
-        player = 0;
+        player = 1;
         for(int i= 1;i<list.size();i++){
             if(min>list.get(i)) {
                 min = list.get(i);
                 player = i+1;
             }
         }
-        Utils.writeString("Победил игрок "+player+1);
+        Utils.writeString("Победил игрок "+player);
         waitForClick(min);
         new RecordMenu().printMenu(min,false);
     }
@@ -48,14 +48,11 @@ public class MultyPlay extends BaseGame {
 
     private int readCountOfPlayers(){
         while((countOfPlayers>4)||(countOfPlayers<=1)) {
-            try {
-                countOfPlayers = Utils.readInteger();
-                if((countOfPlayers>4)||(countOfPlayers<=1))
-                    Utils.writeString("Кол-во игроков должно быть от 2 до 4!");
-            } catch (Exception e) {
+            countOfPlayers = Utils.readInteger();
+            if((countOfPlayers>4)||(countOfPlayers<=1))
+                Utils.writeString("Кол-во игроков должно быть от 2 до 4!");
+            else
                 countOfPlayers = 0;
-                Utils.writeString("Ошибка ввода числа!");
-            }
         }
         return countOfPlayers;
     }

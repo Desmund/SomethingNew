@@ -26,14 +26,10 @@ public abstract class BaseMenu {
         int value = -1;
         boolean hasValue = false;
         while(!hasValue){
-            try {
-                value = Utils.readInteger();
-                hasValue = select(value);
-                if(!hasValue)
-                    Utils.writeString("Введено не верное число!");
-            }catch (Exception e){
-                Utils.writeString("Ошибка при вводе целого числа!");
-            }
+            value = Utils.readInteger();
+            hasValue = select(value);
+            if(!hasValue)
+                Utils.writeString("Введено не верное число!");
         }
         return value;
     }
