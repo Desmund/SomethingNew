@@ -1,7 +1,9 @@
 package Main.Game;
 
-import Main.Menu.*;
 import Main.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * Created by Denis on 30.09.2014.
@@ -14,11 +16,8 @@ public class SetParam {
     }
 
     private static int difficulty = DIFF.diff_med.ordinal();
-
     private static double time = 0;
-
     private static double step = 0;
-
     private static long counOfRound = 0;
 
     private SetParam() {
@@ -79,31 +78,22 @@ public class SetParam {
         return step;
     }
     //todo переделать методы
-    public static boolean getParam(){
-//        FileUtils file = new FileUtils();
-//        String json_str = file.readFile("Sets.txt");
-//        JSONObject obj = new JSONObject();
-//        JSONParser parser = new JSONParser();
-//        try{
-//            obj = (JSONObject) parser.parse(json_str);
-//        }catch(Exception e){}
-//        JSONArray ja = (JSONArray) obj.get("sets");
-//        time = (Double) ja.get(0);
-//        step = (Double) ja.get(1);
-//        counOfRound = (Long)ja.get(2);
-        return false;
+    public static void getParam(){
+        String json_str = FileUtils.readFile("Sets.txt");
+        JsonObject obj = new JsonObject();
+        JsonParser parser = new JsonParser();
+        try{
+            obj = (JsonObject) parser.parse(json_str);
+        }catch(Exception e){}
+        time = obj.get("time").getAsDouble();
+        step =  obj.get("step").getAsDouble();
+        counOfRound = obj.get("counOfRound").getAsInt();
+        difficulty = obj.get("difficulty").getAsInt();
     }
 
     public static void setParam(){
-//        FileUtils file = new FileUtils();
-//        String json_str;
-//        JSONArray ja = new JSONArray();
-//        JSONObject obj = new JSONObject();
-//        ja.add(time);
-//        ja.add(step);
-//        ja.add(counOfRound);
-//        obj.put("sets",ja);
-//        json_str = obj.toString();
-//        file.writeFile("Sets.txt",json_str);
+        Gson gson = new Gson();
+        Sets s = new Sets(time,step,counOfRound,difficulty);
+        FileUtils.writeFile("Sets.txt",gson.toJson(s));
     }
 }

@@ -44,6 +44,6 @@ public class Record {
     @Override
     public String toString() {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh.mm");
-        return name + " : Дата игры -" + f.format(date) +" : Время - " + time;
+        return name + " : Дата игры - " + f.format(date) +" : Время - " + time;
     }
 }

@@ -4,7 +4,6 @@ import Main.Game.Player;
 import Main.Game.Record;
 import Main.Game.TableOfRecords;
 import Main.Utils;
-
 import java.util.ArrayList;
 
 /**
