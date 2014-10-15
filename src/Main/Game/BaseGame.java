@@ -12,7 +12,7 @@ public class BaseGame {
 
     private long time=0;
     protected double timeOfAllRounds = 0;
-    protected long n = new SetParam().getCountOfRound();
+    protected long n = SetParam.getCountOfRound();
 
     public void printMenu(){
         printSets();
@@ -24,8 +24,8 @@ public class BaseGame {
     }
 
     protected void printSets(){
-        Utils.writeString("Обновление таймера: " + new SetParam().getStep());
-        switch (new SetParam().getDifficulty()) {
+        Utils.writeString("Обновление таймера: " + SetParam.getStep());
+        switch (SetParam.getDifficulty()) {
             case 0:
                 Utils.writeString("Время раунда: 3-6");break;
             case 1:
@@ -33,7 +33,7 @@ public class BaseGame {
             case 2:
                 Utils.writeString("Время раунда: 1-3");break;
         }
-        Utils.writeString("Кол-во раундов: " + new SetParam().getCountOfRound());
+        Utils.writeString("Кол-во раундов: " + SetParam.getCountOfRound());
         Utils.writeEnter();
     }
 
@@ -66,8 +66,8 @@ public class BaseGame {
     }
 
     protected double round(){
-        double time_param = new SetParam().getTime();
-        double step_param = new SetParam().getStep();
+        double time_param = SetParam.getTime();
+        double step_param = SetParam.getStep();
         ThreadTimer tt = new ThreadTimer(time_param,step_param);
         long step =(long) (step_param*1000);
         time = (long) (time_param*1000);
@@ -88,7 +88,7 @@ public class BaseGame {
             }
         }
         timeOfAllRounds += ((Math.abs(time - t)/10)/100.0);
-        new SetParam().setTime(new SetParam().getDifficulty());
+        SetParam.setTime(SetParam.getDifficulty());
         return ((time - t)/10)/100.0;
     }
 }

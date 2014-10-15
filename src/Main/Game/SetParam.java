@@ -9,8 +9,8 @@ import org.json.simple.parser.JSONParser;
 /**
  * Created by Denis on 30.09.2014.
  */
-public class SetParam extends BaseMenu {
-    enum DIFF{
+public class SetParam {
+    public enum DIFF{
         diff_easy,
         diff_med,
         diff_hard;
@@ -24,7 +24,11 @@ public class SetParam extends BaseMenu {
 
     private static long counOfRound = 0;
 
-    public void setTime(int diff){
+    private SetParam() {
+
+    }
+
+    public static void setTime(int diff){
         switch (diff) {
             case 0:
                 time = (int)(Math.random()*31) + 30;
@@ -42,12 +46,12 @@ public class SetParam extends BaseMenu {
         time /=10.0;
     }
 
-    private void setDifficulty(int diff){
+    public static void setDifficulty(int diff){
         difficulty = diff;
         setTime(diff);
     }
 
-    private void setCountOfRounds(){
+    public static void setCountOfRounds(){
         boolean enter = false;
         while(!enter) {
             try {
@@ -62,55 +66,25 @@ public class SetParam extends BaseMenu {
         }
     }
 
-    public int getDifficulty(){
+    public static int getDifficulty(){
         return difficulty;
     }
 
-    public double getTime(){
+    public static double getTime(){
         return time;
     }
 
-    public long getCountOfRound(){
+    public static long getCountOfRound(){
         return counOfRound;
     }
 
-    public double getStep(){
+    public static double getStep(){
         return step;
     }
 
-    @Override
-    public void printMenu() {
-        Utils.writeString("Выберите кол-во раундов(не больше 20):");
-        setCountOfRounds();
-        Utils.writeEnter();
-        Utils.writeString("Выберите уровень сложности игры:");
-        Utils.writeString("1 - Легкая");
-        Utils.writeString("2 - Средняя");
-        Utils.writeString("3 - Сложная");
-        getValue();
-        Utils.writeEnter();
-        setParam();
-        new GameMenu().printMenu();
-    }
 
-    @Override
-    protected boolean select(int i) {
-        switch (i) {
-            case 1:
-                setDifficulty(DIFF.diff_easy.ordinal());
-                return true;
-            case 2:
-                setDifficulty(DIFF.diff_med.ordinal());
-                return true;
-            case 3:
-                setDifficulty(DIFF.diff_hard.ordinal());
-                return true;
-            default:
-                return false;
-        }
-    }
 
-    public boolean getParam(){
+    public static boolean getParam(){
         FileUtils file = new FileUtils();
         String json_str = file.readFile("Sets.txt");
         JSONObject obj = new JSONObject();
@@ -125,7 +99,7 @@ public class SetParam extends BaseMenu {
         return true;
     }
 
-    public void setParam(){
+    public static void setParam(){
         FileUtils file = new FileUtils();
         String json_str;
         JSONArray ja = new JSONArray();

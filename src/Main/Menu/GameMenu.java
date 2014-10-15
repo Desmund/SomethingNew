@@ -11,7 +11,7 @@ public class GameMenu extends BaseMenu{
     @Override
     public void printMenu() {
         //todo рефакторинг!
-        new SetParam().getParam();
+        SetParam.getParam();
         Utils.writeString("1 - Начать одиночную игру");
         Utils.writeString("2 - Начать мультиплеерную игру");
         Utils.writeString("3 - Настройки игры");
@@ -31,7 +31,7 @@ public class GameMenu extends BaseMenu{
                 new MultyPlay().printMenu();
                 return true;
             case 3:
-                new SetParam().printMenu();
+                new SetMenu().printMenu();
                 return true;
             case 4:
                 tableOfRecords();
