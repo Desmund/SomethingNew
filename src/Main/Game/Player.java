@@ -1,6 +1,5 @@
 package Main.Game;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -26,7 +25,6 @@ public class Player {
     public Player(String name,double time){
         this.name = name;
         this.time = time;
-        //SimpleDateFormat format1 = new SimpleDateFormat("dd:MM:yyyy hh:mm");
-        date = new Date();;
+        date = new Date();
     }
 }

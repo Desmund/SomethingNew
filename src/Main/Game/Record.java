@@ -1,5 +1,6 @@
 package Main.Game;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -38,5 +39,11 @@ public class Record {
 
     public void setTime(double time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh.mm");
+        return name + " : Дата игры -" + f.format(date) +" : Время - " + time;
     }
 }

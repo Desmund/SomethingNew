@@ -31,8 +31,11 @@ public class RecordMenu extends BaseMenu {
 //            table_path = "MultyTable.txt";
         Utils.writeString("========Рекорды========");
         ArrayList<Record> rec = tb.readFromFile();
-        //todo перевести лист->строка
-        Utils.writeString(rec.toString());
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<rec.size();i++){
+            sb.append((i+1)+". "+rec.get(i)+"\n");
+        }
+        Utils.writeString(sb.toString());
         try {
             Utils.readString();
         }catch (Exception e){}
