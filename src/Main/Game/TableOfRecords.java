@@ -4,54 +4,41 @@ import Main.FileUtils;
 import Main.Menu.BaseMenu;
 import Main.Menu.GameMenu;
 import Main.Utils;
-import org.json.simple.*;
-import org.json.simple.parser.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.sun.javafx.collections.transformation.FilterableList;
+
 import java.util.ArrayList;
 
 /**
  * Created by Denis on 30.09.2014.
  */
-public class TableOfRecords extends BaseMenu {
+public class TableOfRecords{
 
     private double time = 0;
     protected String table_path = "Table.txt";
 
-    public void printMenu(double t) {
-        setTime(t);
-        Utils.writeString("Записать ваш результат в таблицу рекордов?");
-        Utils.writeString("1 - Да");
-        Utils.writeString("2 - Нет");
-        getValue();
+    public void writeToFile(Player p){
+        ArrayList<Record> rec = readFromFile();
+        rec.add(new Record(p.getName(),p.getDate(),p.getTime()));
+        Gson gson = new Gson();
+        FileUtils file = new FileUtils();
+        file.writeFile(table_path,gson.toJson(rec));
     }
 
-    public void printMenu(boolean b) {
-        Utils.writeEnter();
-        if(b)
-            table_path = "Table.txt";
-        else
-            table_path = "MultyTable.txt";
-        Utils.writeString("========Рекорды========");
-        String s = readFromFile();
-        Utils.writeString(s);
-        try {
-            Utils.readString();
-        }catch (Exception e){}
-        new GameMenu().printMenu();
-    }
-
-    @Override
-    protected boolean select(int i) {
-        switch (i){
-            case 1:
-                writeToFile();
-                new GameMenu().printMenu();
-                return true;
-            case 2:
-                new GameMenu().printMenu();
-                return true;
+    private ArrayList<Record> readFromFile(){
+        FileUtils file = new FileUtils();
+        //StringBuilder s = new StringBuilder();
+        String json = decode(file.readFile(table_path));
+        if(json.isEmpty()) {
+            //Utils.writeString("Таблица рекордов пустая!");
+            return new ArrayList<Record>();
         }
-        return false;
+        Gson gson = new Gson();
+        ArrayList<Record> l = gson.fromJson(json,new TypeToken<ArrayList<Record>>(){}.getType());
+        return l;
     }
+    //************************************
 
     private void setTime(double time){
         this.time = time;
@@ -59,40 +46,6 @@ public class TableOfRecords extends BaseMenu {
 
     private double getTime(){
         return time;
-    }
-
-    private void writeToFile(){
-        String name ="";
-        Utils.writeString("Введите свое имя:");
-        try {
-            name = Utils.readString();
-        }catch (Exception e){
-            Utils.writeString("Ошибка ввода!");
-        }
-        double time = getTime();
-        FileUtils file = new FileUtils();
-        String s = decode(file.readFile(table_path));
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObj = new JSONObject();
-        if(!s.isEmpty()){
-            try {
-                Object o = parser.parse(s);
-                jsonObj = (JSONObject) o;
-            } catch (Exception e) {
-                Utils.writeString("Ошибка,при парсинге строки!");
-            }
-        }
-        Player p= new Player(name,time);
-        JSONObject obj = new JSONObject();
-        JSONArray arr = new JSONArray();
-        arr.add(p.getName());
-        arr.add(p.getDate());
-        arr.add(convertTime(p.getTime()));
-        obj.put(jsonObj.size()+1,arr);
-        if(!jsonObj.isEmpty())
-            obj.putAll(jsonObj);
-        s = obj.toString();
-        file.writeFile(table_path,code(s));
     }
 
     private double convertTime(double b){
@@ -123,26 +76,7 @@ public class TableOfRecords extends BaseMenu {
         return j;
     }
 
-    private String readFromFile(){
-        FileUtils file = new FileUtils();
-        StringBuilder s = new StringBuilder();
-        String json = decode(file.readFile(table_path));
-        if(json.isEmpty()) {
-            Utils.writeString("Таблица рекордов пустая!");
-            return "";
-        }
-            JSONObject jsonObj = parsObj(json);
-            jsonObj = sortTableValues(jsonObj);
-            for(int i=1;i<=jsonObj.size();i++){
-                JSONArray ja = (JSONArray) jsonObj.get(Integer.toString(i));
-                s.append((i)+". ");
-                s.append(ja.get(0).toString()+" ");
-                s.append(ja.get(1).toString()+" ");
-                s.append(ja.get(2).toString()+"\n");
-            }
-        Utils.writeString(" ");
-        return s.toString();
-    }
+
 
     private JSONObject sortTableValues(JSONObject obj){
         ArrayList<Double> time = new ArrayList<Double>();
