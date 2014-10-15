@@ -31,51 +31,52 @@ public class TableOfRecords{
         }
         Gson gson = new Gson();
         table_path = RecordMenu.getTable_path();
-        FileUtils.writeFile(table_path,gson.toJson(rec));
+        FileUtils.writeFile(table_path,code(gson.toJson(rec)));
     }
 
     public ArrayList<Record> readFromFile(){
         table_path = RecordMenu.getTable_path();
-        String json =FileUtils.readFile(table_path);
+        String json =decode(FileUtils.readFile(table_path));
         if(json.isEmpty()) {
             Utils.writeString("Таблица рекордов пустая!");
             return new ArrayList<Record>();
         }
         Gson gson = new Gson();
         ArrayList<Record> l = gson.fromJson(json,new TypeToken<ArrayList<Record>>(){}.getType());
+        if(l==null){
+            return new ArrayList<Record>();
+        }
         return l;
     }
 
-//    private String code(String s){
-//        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
-//        for(int i = 0; i < s.length(); i++){
-//            char c = s.charAt(i);
-//            if(i%2==1)
-//                setOfChar.add((int)c-(i%9));
-//            else
-//                setOfChar.add((int)c+(i%9));
-//        }
-//        JSONArray arr = new JSONArray();
-//        arr.addAll(setOfChar);
-//        s = arr.toString();
-//        return s;
-//    }
-//
-//    private String decode(String s){
-//        StringBuilder cs = new StringBuilder();
-//        JSONParser parse = new JSONParser();
-//        JSONArray arr = new JSONArray();
-//        try{
-//            arr = (JSONArray) parse.parse(s);
-//        }catch(Exception e){}
-//        for(int i = 0; i < arr.size(); i++){
-//            long c = (Long) arr.get(i);
-//            if(i%2==1)
-//                cs.append((char)(c+(i%9)));
-//            else
-//                cs.append((char)(c-(i%9)));
-//        }
-//        s = cs.toString();
-//        return s;
-//    }
+    private String code(String s){
+        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(i%2==1)
+                setOfChar.add((int)c-(i%9));
+            else
+                setOfChar.add((int)c+(i%9));
+        }
+        Gson gson = new Gson();
+        return gson.toJson(setOfChar);
+    }
+
+    private String decode(String s){
+        StringBuilder cs = new StringBuilder();
+        Gson gson = new Gson();
+        ArrayList<Integer> l = gson.fromJson(s,new TypeToken<ArrayList<Integer>>(){}.getType());
+        if(l==null){
+            return "";
+        }
+        for(int i = 0; i <l.size(); i++){
+            int c = l.get(i);
+            if(i%2==1)
+                cs.append((char)(c+(i%9)));
+            else
+                cs.append((char)(c-(i%9)));
+        }
+        s = cs.toString();
+        return s;
+    }
 }
