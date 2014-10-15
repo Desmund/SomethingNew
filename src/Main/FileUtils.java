@@ -18,7 +18,7 @@ public class FileUtils {
                 out.close();
             }
         }catch(Exception e){
-            Utils.writeString("шибка приработе с файлом!");
+            Utils.writeString("Ошибка при работе с файлом!");
         }
     }
 
@@ -38,7 +38,7 @@ public class FileUtils {
                     in.close();
                 }
             }catch (Exception e){
-                Utils.writeString("шибка приработе с файлом!");
+                Utils.writeString("Ошибка при работе с файлом!");
             }
         }
         return sb.toString();

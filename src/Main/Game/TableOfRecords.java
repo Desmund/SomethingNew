@@ -17,7 +17,18 @@ public class TableOfRecords{
 
     public void writeToFile(Player p){
         ArrayList<Record> rec = readFromFile();
-        rec.add(new Record(p.getName(),p.getDate(),p.getTime()));
+        boolean b = true;
+        Record r = new Record(p.getName(),p.getDate(),p.getTime());
+        for(int i=0;i< rec.size();i++) {
+            if(rec.get(i).getTime()>p.getTime()) {
+                rec.add(i,r);
+                b = false;
+                break;
+            }
+        }
+        if (b){
+            rec.add(r);
+        }
         Gson gson = new Gson();
         table_path = RecordMenu.getTable_path();
         FileUtils.writeFile(table_path,gson.toJson(rec));
@@ -34,43 +45,6 @@ public class TableOfRecords{
         ArrayList<Record> l = gson.fromJson(json,new TypeToken<ArrayList<Record>>(){}.getType());
         return l;
     }
-
-//    private JSONObject sortTableValues(JSONObject obj){
-//        ArrayList<Double> time = new ArrayList<Double>();
-//        ArrayList<String> data = new ArrayList<String>();
-//        JSONObject jo = new JSONObject();
-//        for(int i=1;i<=obj.size();i++) {
-//            jo.put(i, obj.get(Integer.toString(i)));
-//            JSONArray ja = parsArr(jo,i);
-//            time.add((Double) ja.get(2));
-//            data.add(ja.toString());
-//        }
-//        JSONObject o = new JSONObject();
-//        String dop_string = "";
-//        double dop_double = 0;
-//        for(int i = 0;i<time.size();i++) {
-//            for (int j = i+1; j < time.size(); j++) {
-//                if (time.get(i) > time.get(j)) {
-//                    dop_double = time.get(j);
-//                    time.set(j,time.get(i));
-//                    time.set(i,dop_double);
-//                    dop_string = data.get(j);
-//                    data.set(j,data.get(i));
-//                    data.set(i,dop_string);
-//                }
-//            }
-//            JSONArray ar = new JSONArray();
-//            Object or = new Object();
-//            JSONParser parser = new JSONParser();
-//            try {
-//                 or = parser.parse(data.get(i));
-//            }catch (Exception e){}
-//            for(int k=0;k<3;k++)
-//                ar.add(((JSONArray) or).get(k));
-//            o.put(Integer.toString(i+1),ar);
-//        }
-//        return o;
-//    }
 
 //    private String code(String s){
 //        ArrayList<Integer> setOfChar = new ArrayList<Integer>();
