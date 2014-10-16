@@ -7,9 +7,14 @@ public class Sets {
     private double time;
     private double step;
     private long counOfRound;
-    private int difficulty;
+    private DIFF difficulty;
+    public enum DIFF{
+        diff_easy,
+        diff_med,
+        diff_hard;
+    }
 
-    public Sets(double time, double step, long counOfRound, int difficulty) {
+    public Sets(double time, double step, long counOfRound, DIFF difficulty) {
         this.time = time;
         this.step = step;
         this.counOfRound = counOfRound;
@@ -43,11 +48,11 @@ public class Sets {
         this.counOfRound = counOfRound;
     }
 
-    public int getDifficulty() {
+    public DIFF getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(DIFF difficulty) {
         this.difficulty = difficulty;
     }
 }

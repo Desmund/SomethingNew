@@ -1,4 +1,4 @@
-package Main.Game;
+package Main;
 
 import Main.FileUtils;
 import Main.Menu.RecordMenu;

@@ -1,4 +1,4 @@
-package Main.Game;
+package Main;
 
 import Main.*;
 import Main.DataModels.Sets;
@@ -11,11 +11,6 @@ import com.google.gson.reflect.TypeToken;
  * Created by Denis on 30.09.2014.
  */
 public class SetParam {
-    public enum DIFF{
-        diff_easy,
-        diff_med,
-        diff_hard;
-    }
 
     private static Sets s = new  Sets();
 
@@ -23,17 +18,17 @@ public class SetParam {
 
     }
 
-    public static void setTime(int diff){
+    public static void setTime(Sets.DIFF diff){
         switch (diff) {
-            case 0:
+            case diff_easy:
                 s.setTime((int)(Math.random()*31) + 30);
                 s.setStep(1);
                 break;
-            case 1:
+            case diff_med:
                 s.setTime((int)(Math.random()*21) + 20);
                 s.setStep(0.5);
                 break;
-            case 2:
+            case diff_hard:
                 s.setTime((int)(Math.random()*21) + 10);
                 s.setStep(0.2);
                 break;
@@ -41,7 +36,7 @@ public class SetParam {
         s.setTime(s.getTime()/10.0);
     }
 
-    public static void setDifficulty(int diff){
+    public static void setDifficulty(Sets.DIFF diff){
         s.setDifficulty(diff);
         setTime(diff);
     }
@@ -57,7 +52,7 @@ public class SetParam {
         }
     }
 
-    public static int getDifficulty(){
+    public static Sets.DIFF getDifficulty(){
         return s.getDifficulty();
     }
 

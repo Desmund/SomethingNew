@@ -1,7 +1,7 @@
 package Main.Menu;
 
 import Main.Game.*;
-import Main.Game.SetParam;
+import Main.SetParam;
 import Main.Utils;
 
 /**

@@ -2,6 +2,7 @@ package Main.Game;
 
 import Main.Menu.GameMenu;
 import Main.Menu.RecordMenu;
+import Main.SetParam;
 import Main.ThreadTimer;
 import Main.Utils;
 import java.util.Date;
@@ -27,12 +28,15 @@ public class BaseGame {
     protected void printSets(){
         Utils.writeString("Обновление таймера: " + SetParam.getStep());
         switch (SetParam.getDifficulty()) {
-            case 0:
-                Utils.writeString("Время раунда: 3-6");break;
-            case 1:
-                Utils.writeString("Время раунда: 2-4");break;
-            case 2:
-                Utils.writeString("Время раунда: 1-3");break;
+            case diff_easy:
+                Utils.writeString("Время раунда: 3-6");
+                break;
+            case diff_med:
+                Utils.writeString("Время раунда: 2-4");
+                break;
+            case diff_hard:
+                Utils.writeString("Время раунда: 1-3");
+                break;
         }
         Utils.writeString("Кол-во раундов: " + SetParam.getCountOfRound());
         Utils.writeEnter();

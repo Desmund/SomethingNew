@@ -1,6 +1,7 @@
 package Main.Menu;
 
-import Main.Game.SetParam;
+import Main.DataModels.Sets;
+import Main.SetParam;
 import Main.Utils;
 
 /**
@@ -26,13 +27,13 @@ public class SetMenu extends BaseMenu {
     protected boolean select(int i) {
         switch (i) {
             case 1:
-                SetParam.setDifficulty(SetParam.DIFF.diff_easy.ordinal());
+                SetParam.setDifficulty(Sets.DIFF.diff_easy);
                 return true;
             case 2:
-                SetParam.setDifficulty(SetParam.DIFF.diff_med.ordinal());
+                SetParam.setDifficulty(Sets.DIFF.diff_med);
                 return true;
             case 3:
-                SetParam.setDifficulty(SetParam.DIFF.diff_hard.ordinal());
+                SetParam.setDifficulty(Sets.DIFF.diff_hard);
                 return true;
             default:
                 return false;
