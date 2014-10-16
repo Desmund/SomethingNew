@@ -24,8 +24,8 @@ public class FileUtils {
 
     public static String readFile(String fileName){
         StringBuilder sb = new StringBuilder();
-        if(exists(fileName)){
-            File file = new File(fileName);
+        File file = new File(fileName);
+        if(file.exists()){
             try{
                 BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
                 try{
@@ -46,10 +46,7 @@ public class FileUtils {
 
     public static boolean exists(String fileName){
         File file = new File(fileName);
-        if(!file.exists())
-            return false;
-        else
-            return true;
+        return file.exists();
     }
 
     public static void updateFile(String fileName, String newText){
@@ -63,8 +60,9 @@ public class FileUtils {
     }
 
     public static void delete(String fileName){
-        if(exists(fileName))
-            new File(fileName).delete();
+        File file = new File(fileName);
+        if(file.exists())
+            file.delete();
     }
 }
 
