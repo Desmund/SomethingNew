@@ -1,4 +1,4 @@
-package Main.Game;
+package Main.DataModels;
 
 import java.util.Date;
 

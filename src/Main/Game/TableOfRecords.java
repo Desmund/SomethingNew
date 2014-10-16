@@ -2,6 +2,8 @@ package Main.Game;
 
 import Main.FileUtils;
 import Main.Menu.RecordMenu;
+import Main.DataModels.Player;
+import Main.DataModels.Record;
 import Main.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -1,7 +1,7 @@
 package Main.Menu;
 
-import Main.Game.Player;
-import Main.Game.Record;
+import Main.DataModels.Player;
+import Main.DataModels.Record;
 import Main.Game.TableOfRecords;
 import Main.Utils;
 import java.util.ArrayList;

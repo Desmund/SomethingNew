@@ -1,9 +1,11 @@
 package Main.Game;
 
 import Main.*;
+import Main.DataModels.Sets;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Created by Denis on 30.09.2014.
@@ -15,10 +17,7 @@ public class SetParam {
         diff_hard;
     }
 
-    private static int difficulty = DIFF.diff_med.ordinal();
-    private static double time = 0;
-    private static double step = 0;
-    private static long counOfRound = 0;
+    private static Sets s = new  Sets();
 
     private SetParam() {
 
@@ -27,31 +26,31 @@ public class SetParam {
     public static void setTime(int diff){
         switch (diff) {
             case 0:
-                time = (int)(Math.random()*31) + 30;
-                step = 1;
+                s.setTime((int)(Math.random()*31) + 30);
+                s.setStep(1);
                 break;
             case 1:
-                time = (int)(Math.random()*21) + 20;
-                step = 0.5;
+                s.setTime((int)(Math.random()*21) + 20);
+                s.setStep(0.5);
                 break;
             case 2:
-                time = (int)(Math.random()*21) + 10;
-                step = 0.2;
+                s.setTime((int)(Math.random()*21) + 10);
+                s.setStep(0.2);
                 break;
         }
-        time /=10.0;
+        s.setTime(s.getTime()/10.0);
     }
 
     public static void setDifficulty(int diff){
-        difficulty = diff;
+        s.setDifficulty(diff);
         setTime(diff);
     }
 
     public static void setCountOfRounds(){
         boolean enter = false;
         while(!enter) {
-            counOfRound = Utils.readInteger();
-            if(counOfRound>0&&counOfRound<=20)
+            s.setCounOfRound(Utils.readInteger());
+            if(s.getCounOfRound()>0&&s.getCounOfRound()<=20)
                 enter = true;
             else
                 Utils.writeString("Количество раундов должнл быть больше 0 и меньше или равно 20!");
@@ -59,36 +58,28 @@ public class SetParam {
     }
 
     public static int getDifficulty(){
-        return difficulty;
+        return s.getDifficulty();
     }
 
     public static double getTime(){
-        return time;
+        return s.getTime();
     }
 
     public static long getCountOfRound(){
-        return counOfRound;
+        return s.getCounOfRound();
     }
 
     public static double getStep(){
-        return step;
+        return s.getStep();
     }
     public static void getParam(){
         String json_str = FileUtils.readFile("Sets.txt");
-        JsonObject obj = new JsonObject();
-        JsonParser parser = new JsonParser();
-        try{
-            obj = (JsonObject) parser.parse(json_str);
-        }catch(Exception e){}
-        time = obj.get("time").getAsDouble();
-        step =  obj.get("step").getAsDouble();
-        counOfRound = obj.get("counOfRound").getAsInt();
-        difficulty = obj.get("difficulty").getAsInt();
+        Gson gson = new Gson();
+        s = gson.fromJson(json_str,new TypeToken<Sets>(){}.getType());
     }
 
     public static void setParam(){
         Gson gson = new Gson();
-        Sets s = new Sets(time,step,counOfRound,difficulty);
         FileUtils.writeFile("Sets.txt",gson.toJson(s));
     }
 }

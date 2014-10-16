@@ -1,4 +1,4 @@
-package Main.Game;
+package Main.DataModels;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
